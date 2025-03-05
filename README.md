@@ -40,7 +40,7 @@ npm run build
 ```
 
 ## 🎨 UI/UX Design
-Check out the Figma design: **[https://www.figma.com/design/DsrqXKKgs6LiL6Wwrl7Afz/poll.autoxona.com?node-id=0-1&t=MbM3pYLrZmniewrj-1](poll.autoxona.com)**
+Check out the Figma design: **[poll.autoxona.com](https://www.figma.com/design/DsrqXKKgs6LiL6Wwrl7Afz/poll.autoxona.com?node-id=0-1&t=MbM3pYLrZmniewrj-1)**
 
 ## 📖 Documentation
 Detailed API and development documentation can be found in the **[Wiki Section](https://github.com/matthsworld/poll.autoxona.com/wiki)**.
