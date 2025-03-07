@@ -3,7 +3,7 @@ import React from "react";
 const Footer: React.FC = () => {
   return (
     <footer className="bg-gray-900 text-white text-center p-4 mt-8">
-      <p>&copy; 2025 Polls Autoxona. All Rights Reserved.</p>
+      <p>&copy; 2025 poll.autoxona.com, All Rights Reserved.</p>
     </footer>
   );
 };
