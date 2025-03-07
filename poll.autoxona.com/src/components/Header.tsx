@@ -1,4 +1,21 @@
+import React from "react";
 import { Link } from "react-router-dom";
+
+const Header: React.FC = () => {
+  return (
+    <nav className="bg-gray-900 text-white p-4 flex justify-between">
+      <h1 className="text-xl font-bold">poll.autoxona.com</h1>
+      <div>
+        <Link className="mr-4" to="/">Home</Link>
+        <Link className="mr-4" to="/about">About</Link>
+        <Link to="/blog">Blog</Link>
+      </div>
+    </nav>
+  );
+};
+
+export default Header;
+/*import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -15,4 +32,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Header;*/
