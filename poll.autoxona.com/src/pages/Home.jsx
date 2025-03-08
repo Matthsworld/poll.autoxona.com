@@ -1,39 +1,64 @@
 import { useState, useEffect } from "react";
 
 function Home() {
-  const [votes, setVotes] = useState(120);
+  const [votes, setVotes] = useState(120); // Default count
 
-  // Simulating live vote updates every 3 seconds
+  // Fetch votes from backend
   useEffect(() => {
-    const interval = setInterval(() => {
-      setVotes((prevVotes) => prevVotes + Math.floor(Math.random() * 5));
-    }, 3000);
+    const fetchVotes = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/votes");
+        const data = await response.json();
+        setVotes(data.totalVotes);
+      } catch (error) {
+        console.error("Error fetching votes:", error);
+      }
+    };
 
+    fetchVotes();
+
+    // Poll for updates every 3 seconds
+    const interval = setInterval(fetchVotes, 3000);
     return () => clearInterval(interval);
   }, []);
 
+  // Function to handle voting
+  const handleVote = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/vote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setVotes(data.totalVotes);
+      } else {
+        console.error("Failed to cast vote");
+      }
+    } catch (error) {
+      console.error("Error voting:", error);
+    }
+  };
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 px-6 py-12">
+    <div className="container mx-auto px-6 py-12 text-center">
       {/* Hero Section */}
-      <div className="w-full max-w-4xl text-center">
-        <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6 animate-fadeIn">
-          Welcome to <span className="text-blue-600">Poll Autoxona</span>
-        </h1>
-        <p className="text-gray-700 text-lg md:text-xl mb-8 animate-slideUp">
-          A simple and interactive platform for polling and voting. Stay updated with real-time voting results.
-        </p>
-        <button className="bg-blue-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg text-lg font-semibold shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105">
-          Start Voting
+      <div className="max-w-3xl mx-auto">
+        <h2 className="text-4xl font-bold text-gray-900 mb-4">Welcome to Poll Autoxona</h2>
+        <p className="text-gray-600 text-lg mb-6">A simple and interactive platform for polling and voting.</p>
+        <button
+          onClick={handleVote}
+          className="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold shadow-md hover:bg-blue-700 transition transform hover:scale-105"
+        >
+          Vote Now
         </button>
       </div>
 
       {/* Live Voting Stats */}
-      <div className="mt-16 p-6 bg-white shadow-lg rounded-lg w-full max-w-md text-center animate-bounceIn">
-        <p className="text-gray-800 text-xl md:text-2xl font-semibold">
-          Total Votes:{" "}
-          <span className="text-blue-600 font-bold text-3xl md:text-4xl animate-pulse">
-            {votes}
-          </span>
+      <div className="mt-12">
+        <p className="text-gray-700 text-xl font-semibold">
+          Total Votes: <span className="text-blue-600 font-bold text-2xl">{votes}</span>
         </p>
       </div>
     </div>
